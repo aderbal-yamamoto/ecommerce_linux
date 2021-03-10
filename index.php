@@ -13,20 +13,20 @@ $app->config('debug', true);
 
 $app->get('/', function() {
     
-    $page = new Page();
+    $Page = new Page();
 
-    $page->setTpl("index");
+    $Page->setTpl("index");
 	
 });
 
 
-$app->get('/admin', function() {
+$app->get('/admin/', function() {
     
 	User::verifyLogin();
 
-    $page = new PageAdmin();
+    $Page = new PageAdmin();
 
-    $page->setTpl("index");
+    $Page->setTpl("index");
 	
 });
 
@@ -37,7 +37,7 @@ $app->get('/admin/login', function(){
 		"footer"=>false
 ]);
 	
-	$page->setTpl("login");
+	$page->setTpl("/login");
 
 });
 
@@ -45,7 +45,7 @@ $app->post('/admin/login', function(){
 
 	User::login($_POST["login"], $_POST["password"]);
 
-	header("Location: /admin");
+	header("Location: \\ecommerce_linux/admin");
 	exit;
 
 });
@@ -53,9 +53,10 @@ $app->post('/admin/login', function(){
 $app->get('/admin/logout', function(){
 
 	User::logout();
-	header("Location: /admin/login");
+	header("Location: login");
 	exit;
 }); 
+
 
 $app->get('/admin/users', function() {
    
@@ -65,8 +66,8 @@ $app->get('/admin/users', function() {
 	$page->setTpl("users", array("users"=>$users));
  
 });
-
-$app->get("/admin/users/create", function(){
+ 
+$app->get('/admin/users/create', function(){
 
 	User::verifyLogin();
 
@@ -88,7 +89,7 @@ $app->get("/admin/users/:iduser/delete", function($iduser){
 
 	$user->delete();
 
-	header("Location: /admin/users");
+	header("Location: \\ecommerce_linux/admin/users");
 
 	exit;
 	
@@ -128,7 +129,7 @@ $app->post("/admin/users/create", function(){
 
 	$user->save();
 
-	header("Location: /admin/users");
+	header("Location: \\ecommerce_linux/admin/users");
 
 	exit;
 
@@ -150,7 +151,7 @@ $app->post("/admin/users/:iduser", function($iduser){
 
 	$user->update();
 
-	header("Location: /admin/users");
+	header("Location: \\ecommerce_linux/admin/users");
 
 	exit;
 
